@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--指定spring注解扫描的根目录-->
+    <context:component-scan base-package="com.lanou"/>
+    <!--通常情况下会将dao层的bean声明采用xml的方式声明
+        Service层或action层bean声明采用注解的方式-->
+    <bean id="person"
+          class="com.lanou.domain.Person">
+        <constructor-arg name="name" value="三儿"/>
+        <constructor-arg name="password" value="123"/>
+    </bean>
+     <bean id="personDao"
+           class="com.lanou.dao.PersonDaoImpl">
+         <property name="person" ref="person"/>
+     </bean>
+
+</beans>

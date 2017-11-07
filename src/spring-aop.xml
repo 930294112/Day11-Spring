@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--目标对象-->
+    <bean id="calculation"
+          class="com.lanou.spring_aop.Calculation"/>
+    
+    <!--切面对象-->
+    <bean id="loginUtil"
+          class="com.lanou.spring_aop.LoginUtil"/>
+    
+    <!--配置Spring中的AOP-->
+    <aop:config>
+        <!--配置切入点表达式-->
+        <aop:pointcut id="pointcut" expression="execution(* com.lanou.spring_aop.Calculation.*(..))"/>
+        <!--配置切面类 ref:引用日志对象-->
+        <aop:aspect ref="loginUtil">
+            <!--配置通知-->
+            <!--before:前置通知,切入点执行前进入的方法  point-ref:引用切入点表达式-->
+            <aop:before method="startAdvice" pointcut-ref="pointcut"/>
+            <aop:after method="endAdvice" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
